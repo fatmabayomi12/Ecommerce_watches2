@@ -1,4 +1,4 @@
-export const baseUrl = `http://localhost:8000/api/v1`;
+export const baseUrl = `https://ecommerce-watches-delta.vercel.app/api/v1`;
 
 export const REGISTER = `auth/signup`;
 
