@@ -197,9 +197,6 @@ export default function CheckOut() {
                 <p className="insta-phone">
                   This is InstaPay number:01015738335
                 </p>
-                    <p>
-                    ابعت الصوره علي الواتساب علي هذا الرقم: 01015738335<br/>
-              </p>
                 </>
               ) : (
                 ""
