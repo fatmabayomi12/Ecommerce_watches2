@@ -11,6 +11,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCartShopping } from "@fortawesome/free-solid-svg-icons";
 import { Cart } from "../../../Context/CartChangerContext";
 import Cookie from "cookie-universal";
+import Swal from "sweetalert2";
 
 export default function SingleProduct() {
   const params = useParams();
@@ -98,6 +99,13 @@ export default function SingleProduct() {
     };
 
     OrderinCart();
+
+    Swal.fire({
+      title: "تم اضافة المنتج الى السلة !",
+      description:"توجه لصفحة الطلبات لرؤته",
+      icon: "success",
+      draggable: true
+    });
   };
 
   return (
