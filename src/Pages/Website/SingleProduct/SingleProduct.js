@@ -6,16 +6,19 @@ import ImageGallery from "react-image-gallery";
 import "react-image-gallery/styles/css/image-gallery.css";
 import { useParams } from "react-router-dom";
 import axios from "axios";
-import { baseUrl, PRODUCTS } from "../../../Api/Api";
+import { baseUrl, PRODUCTS, AddTOCart } from "../../../Api/Api";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCartShopping } from "@fortawesome/free-solid-svg-icons";
 import { Cart } from "../../../Context/CartChangerContext";
+import Cookie from "cookie-universal";
 
 export default function SingleProduct() {
   const params = useParams();
   const [product, setProduct] = useState({});
   const [productImages, setProductImages] = useState([]);
   const { setIsChange } = useContext(Cart);
+  const cookie = Cookie();
+  const token = cookie.get("e-commerce");
   useEffect(() => {
     axios.get(`${baseUrl}/${PRODUCTS}/${params.id}`).then((data) => {
       setProductImages(
@@ -56,7 +59,7 @@ export default function SingleProduct() {
 
     // البحث عن المنتج في القائمة
     const productExist = getItems.find((pro) => pro.id === product.id);
-
+    
     if (product) {
       if (productExist) {
         // إذا كان المنتج موجودًا، قم بزيادة العداد
@@ -75,6 +78,26 @@ export default function SingleProduct() {
     } else {
       console.error("Product is undefined, cannot save.");
     }
+
+    console.log(product._id)
+
+    const data = {
+      productId: product._id
+    }
+
+    // save on data Base 
+    const OrderinCart = async () => {
+      await axios
+        .post(`${baseUrl}/${AddTOCart}`, data, {
+          headers: {
+            Authorization: "Bearer " + token,
+          },
+
+        })
+      .then((data) => console.log(data));
+    };
+
+    OrderinCart();
   };
 
   return (

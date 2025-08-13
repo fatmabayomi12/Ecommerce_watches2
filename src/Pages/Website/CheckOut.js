@@ -41,22 +41,16 @@ export default function CheckOut() {
     e.preventDefault();
     console.log(products);
 
-    const data = {
-      cartItems: products.map((p) => ({
-        product: p._id,
-        quantity: p.quantity,
-        // color: p.color || "",
-      })),
-      shippingAddress: {
+    const data = { 
         address: form.street || "",
         phone: form.phone || "",
         city: form.city || "",
         paymentMethodType: form.payment || "",
-      },
+      
     };
-    console.log(data);
+    console.log("data",data);
     try {
-      const res = await axios.post(`${baseUrl}/orders/direct-order`, data, {
+      const res = await axios.post(`${baseUrl}/orders/cashOrder`, data, {
         headers: {
           Authorization: "Bearer " + token,
           "Content-Type": "application/json",
@@ -78,7 +72,7 @@ export default function CheckOut() {
   function handleChange(e) {
     setForm({ ...form, [e.target.name]: e.target.value });
   }
-  console.log(form);
+  console.log(form, "form");
   return (
     <>
       <Header />

@@ -4,12 +4,15 @@ import { Link } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";
 import { Cart } from "../../Context/CartChangerContext";
 import axios from "axios";
-import { baseUrl, PRODUCTS } from "../../Api/Api";
+import { baseUrl, PRODUCTS, AddTOCart } from "../../Api/Api";
+import Cookie from "cookie-universal";
 
 export default function ProductBox({ id, Url, title, description, sold }) {
   const { setIsChange } = useContext(Cart);
   const [addedToCart, setAddedToCart] = useState(false);
   const [product, setProduct] = useState(null);
+  const cookie = Cookie();
+  const token = cookie.get("e-commerce");
 
   // جلب بيانات المنتج عند تحميل المكون
   useEffect(() => {
@@ -47,6 +50,24 @@ export default function ProductBox({ id, Url, title, description, sold }) {
 
     // تحديث `cartItems` في `Context`
     setIsChange((prev) => !prev);
+
+    const data = {
+      productId: product._id
+    }
+
+    // save on data Base 
+    const OrderinCart = async () => {
+      await axios
+        .post(`${baseUrl}/${AddTOCart}`, data, {
+          headers: {
+            Authorization: "Bearer " + token,
+          },
+
+        })
+      .then((data) => console.log(data));
+    };
+
+    OrderinCart();
   };
 
   return (

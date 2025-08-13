@@ -20,6 +20,8 @@ export const SUBCAT = "subcategories";
 
 export const ORDERS = "cashOrder";
 
+export const AddTOCart = "cart";
+
 export const GETORDERSUSER = "orders/my-orders";
 
 export const REVIEWS = "reviews";
