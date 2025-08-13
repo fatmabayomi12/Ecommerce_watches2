@@ -4,12 +4,13 @@ import Cookie from "cookie-universal";
 import axios from "axios";
 import { baseUrl, GETORDERSUSER, ORDERS, PRODUCTS } from "../../Api/Api";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { faPenSquare, faTrash } from "@fortawesome/free-solid-svg-icons";
 
 export default function MyOrders() {
   const [orders, setOrders] = useState([]);
   const [products, setProducts] = useState([]);
+  const nav = useNavigate();
   const [del, setDel] = useState(false);
   const cookie = Cookie();
   const token = cookie.get("e-commerce");
@@ -60,6 +61,8 @@ export default function MyOrders() {
       console.log(res.status);
       if (res.status === 204) {
         setDel((prev) => !prev);
+        nav("/myorders", { replace: true });
+        window.location.reload();
       }
     } catch (err) {
       console.log(err);
