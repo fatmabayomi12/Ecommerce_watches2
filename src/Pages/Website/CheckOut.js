@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { baseUrl, ORDERS } from "../../Api/Api";
 import Cookie from "cookie-universal";
+import Swal from "sweetalert2";
 
 export default function CheckOut() {
   const cookie = Cookie();
@@ -58,6 +59,13 @@ export default function CheckOut() {
       });
       console.log(res);
       if (res.status === 201) {
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: "تم انشاء الطلب بنجاح! توجه الى صفحة الطلبات ",
+          showConfirmButton: false,
+          timer: 2500
+        });
         window.localStorage.removeItem("product");
         nav("/", { replace: true });
       }

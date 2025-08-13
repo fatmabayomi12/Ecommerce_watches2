@@ -6,6 +6,8 @@ import { Cart } from "../../Context/CartChangerContext";
 import axios from "axios";
 import { baseUrl, PRODUCTS, AddTOCart } from "../../Api/Api";
 import Cookie from "cookie-universal";
+import Swal from 'sweetalert2'
+
 
 export default function ProductBox({ id, Url, title, description, sold }) {
   const { setIsChange } = useContext(Cart);
@@ -68,6 +70,13 @@ export default function ProductBox({ id, Url, title, description, sold }) {
     };
 
     OrderinCart();
+
+    Swal.fire({
+      title: "تم اضافة المنتج الى السلة !",
+      description:"توجه لصفحة الطلبات لرؤته",
+      icon: "success",
+      draggable: true
+    });
   };
 
   return (
